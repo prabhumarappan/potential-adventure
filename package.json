@@ -1,0 +1,22 @@
+{
+  "name": "potential-adventure",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/prabhumarappan/potential-adventure.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/prabhumarappan/potential-adventure/issues"
+  },
+  "homepage": "https://github.com/prabhumarappan/potential-adventure#readme",
+  "dependencies": {
+    "sqlite3": "^5.0.0"
+  }
+}
