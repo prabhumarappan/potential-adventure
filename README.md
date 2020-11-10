@@ -27,3 +27,8 @@
     
 # Doubts in Task
 1. When you say populate database, is it through an API or is it a startup script?
+2. When fetching details for a specific country, should the country name be in the URL or in the body or is it upto me?
+
+
+# Assumptions
+1. Going with a SQLite database, as it is easier to set up
