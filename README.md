@@ -23,3 +23,7 @@
 2. Country
     1. CountryName -> Primary, Unique
     2. GMTOffSet -> Integer (Offset in Seconds)
+    
+    
+# Doubts in Task
+1. When you say populate database, is it through an API or is it a startup script?
