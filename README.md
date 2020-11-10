@@ -5,12 +5,12 @@
 2. Database : SQLite3
 
 # APIs in Use
-1. Login 
-2. Get All Country Details
-3. Get Country Detail
-4. Refresh Token
-5. Add Country
-6. Add User
+1. Login -> POST /api/user/login 
+2. Get All Country Details -> GET /api/country/all
+3. Get Country Detail -> GET /api/country
+4. Refresh Token -> POST /api/user/refreshToken
+5. Add Country -> POST /api/country
+6. Add User -> POST /api/user
 
 # Database Models
 1. User
