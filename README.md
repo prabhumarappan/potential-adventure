@@ -28,7 +28,8 @@
 # Doubts in Task
 1. When you say populate database, is it through an API or is it a startup script?
 2. When fetching details for a specific country, should the country name be in the URL or in the body or is it upto me?
-
+3. Is it okay to use an existing JWT module?
+4. With respect to refresh API, generally a refresh token is returned with the login API, so that they can use that to refresh token and get new access tokens. Do you want me to implement something like that? Or is a simple approach of sending the existing access token to get a new access token fine? 
 
 # Assumptions
 1. Going with a SQLite database, as it is easier to set up
