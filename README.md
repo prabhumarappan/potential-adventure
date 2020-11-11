@@ -32,3 +32,5 @@
 # Assumptions
 1. Going with a SQLite database, as it is easier to set up
 2. Since I will be using a SQLite database within the memory, scaling up the instances won't be an option as of now.
+
+# Sample Request
