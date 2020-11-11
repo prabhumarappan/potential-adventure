@@ -21,4 +21,16 @@ app.post('/api/user/login', (req, res) => {
     res.json("hello");
 });
 
+app.get("/api/country/all", (req, res) => {
+    db.getAllCountryDetails()
+        .then(function(countryDetails) {
+            res.json(countryDetails);
+        })
+        .catch(function(error) {
+           // error code
+            console.log(error)
+           res.json("error occured");
+        });
+});
+
 app.listen(8083, () => console.log("Webservice is running on 8083"));
