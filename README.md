@@ -9,8 +9,6 @@
 2. Get All Country Details -> GET /api/country/all
 3. Get Country Detail -> GET /api/country
 4. Refresh Token -> POST /api/user/refreshToken
-5. Add Country -> POST /api/country
-6. Add User -> POST /api/user
 
 # Database Models
 1. User
