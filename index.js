@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 
 app.use(bodyParser.json());
 
-app.post('/', (req, res) => {
+app.post('/api/user/login', (req, res) => {
     email = req.body.email;
     password = req.body.password;
     db.userExists(email, password)
