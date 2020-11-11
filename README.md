@@ -34,3 +34,19 @@
 2. Since I will be using a SQLite database within the memory, scaling up the instances won't be an option as of now.
 
 # Sample Request
+1. Login
+
+
+2. Get All Country Details
+
+
+3. Get Country Details
+
+
+4. Refresh Token
+
+
+# Todo
+1. Add Test Cases
+2. Add Better Function Documentations
+
