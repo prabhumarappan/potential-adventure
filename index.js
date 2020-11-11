@@ -33,4 +33,22 @@ app.get("/api/country/all", (req, res) => {
         });
 });
 
+app.get("/api/country", (req, res) => {
+    var countryName = req.body.CountryName;
+    db.getCountryDetails(countryName)
+        .then(function(result) {
+            res.status(200);
+            res.json(result);
+        })
+        .catch(function(error) {
+            // error code
+            res.status(500);
+            res.json({
+                "error": error
+            });
+        });
+
+
+})
+
 app.listen(8083, () => console.log("Webservice is running on 8083"));
