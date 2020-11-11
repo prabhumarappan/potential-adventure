@@ -29,8 +29,30 @@ function userExists(email, password) {
     })
 }
 
+function getAllCountryDetails() {
+    return new Promise( (resolve, reject) => {
+        if (db == null) {
+            createDBConnection();
+        }
+        db.all(`SELECT Name, Offset FROM CountryDetail`, function(error, rows) {
+            if (error) {
+                reject(error);
+            } else {
+                var countryDetails = [];
+                rows.forEach(function(row) {
+                    countryDetails.push({
+                        "Name": row.Name,
+                        "Offset": row.Offset
+                    });
+                });
+                resolve(countryDetails);
+            }
+        });
+    })
+}
+
 
 module.exports = {
-    createDBConnection,
-    userExists
+    userExists,
+    getAllCountryDetails
 }
