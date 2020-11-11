@@ -51,8 +51,31 @@ function getAllCountryDetails() {
     })
 }
 
+function getCountryDetails(countryName) {
+    return new Promise((resolve, reject) => {
+        if (db == null) {
+            createDBConnection();
+        }
+        db.get(`SELECT Name, Offset FROM CountryDetail WHERE Name="${countryName}"`, function(error, result) {
+            if (error) {
+                reject(error);
+            } else {
+                if (result) {
+                    var countryResult = {
+                        "Name": result.Name,
+                        "Offset": result.Offset
+                    }
+                    resolve(countryResult);
+                } else {
+                    reject("country not found!");
+                }
+            }
+        })
+    })
+}
 
 module.exports = {
     userExists,
-    getAllCountryDetails
+    getAllCountryDetails,
+    getCountryDetails
 }
