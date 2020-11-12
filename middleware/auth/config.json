@@ -1,0 +1,6 @@
+{
+  "secret": "we-are-the-secret",
+  "refreshTokenSecret": "we-are-the-refresh",
+  "tokenLife": 300,
+  "refreshTokenLife": 86400
+}
