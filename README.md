@@ -37,16 +37,36 @@
 
 # Sample Request -> CURL
 1. Login
-
+```cURL
+curl --location --request POST 'localhost:8083/api/user/login' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "email": "prabhu@gmail.com",
+    "password": "password"
+}'
+```
 
 2. Get All Country Details
-
+```cURL
+curl --location --request GET 'localhost:8083/api/country/all' \
+--header 'Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InByYWJodUBnbWFpbC5jb20iLCJpYXQiOjE2MDUxODM0MjAsImV4cCI6MTYwNTE4MzcyMH0.PhkjQvdGfJNeVKBQF3Z2EMNzdEkzU-1wncbcgUdullM'
+```
 
 3. Get Country Details
-
+```cURL
+curl --location --request GET 'localhost:8083/api/country' \
+--header 'Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InByYWJodUBnbWFpbC5jb20iLCJpYXQiOjE2MDUxODM0MjAsImV4cCI6MTYwNTE4MzcyMH0.PhkjQvdGfJNeVKBQF3Z2EMNzdEkzU-1wncbcgUdullM' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "CountryName": "China"
+}'
+```
 
 4. Refresh Token
-
+```cURL
+curl --location --request GET 'localhost:8083/api/user/refreshToken' \
+--header 'Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InByYWJodUBnbWFpbC5jb20iLCJpYXQiOjE2MDUxNTIzMjIsImV4cCI6MTYwNTIzODcyMn0._X-F1rFiDdzLxlcOOrv766MAvzDI87tPIa_Bu_Onea0'
+```
 
 # Todo
 1. Add Test Cases
