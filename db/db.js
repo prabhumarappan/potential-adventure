@@ -1,7 +1,9 @@
 var sqlite3 = require('sqlite3').verbose();
 var db = null;
 
-
+/*
+ * Function to create a new DB connection and assign it to the db vairalbe
+ */
 function createDBConnection() {
     db = new sqlite3.Database('./task.db', (err) => {
         if (err) {
@@ -10,6 +12,10 @@ function createDBConnection() {
     });
 }
 
+/*
+ * Function to check if the passed user with the email and password
+ * exist in the database
+ */
 function userExists(email, password) {
     return new Promise((resolve, reject) => {
         if (db == null) {
@@ -29,6 +35,10 @@ function userExists(email, password) {
     })
 }
 
+/*
+ * Function to fetch all the existing country details in the datbase
+ * and return them in an array of objects
+ */
 function getAllCountryDetails() {
     return new Promise( (resolve, reject) => {
         if (db == null) {
@@ -51,6 +61,10 @@ function getAllCountryDetails() {
     })
 }
 
+/*
+ * Function to fetch details for a specific country and return it's response
+ * if it exists otherwise throw an error
+ */
 function getCountryDetails(countryName) {
     return new Promise((resolve, reject) => {
         if (db == null) {
