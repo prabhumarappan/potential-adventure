@@ -2,6 +2,8 @@ const express = require('express');
 const app = express();
 const db = require("./db/db");
 const bodyParser = require('body-parser');
+const auth = require('./middleware/auth/auth');
+const jwt = require('jsonwebtoken')
 
 app.use(bodyParser.json());
 
@@ -49,6 +51,16 @@ app.get("/api/country", (req, res) => {
         });
 
 
+app.get("/api/user/refreshToken", auth.checkRefresh, (req, res) => {
+    var refreshToken = req.headers.authorization;
+    try {
+        const response = auth.createJWTRefreshToken(refreshToken, req.decoded);
+        res.status(200);
+        res.send(response)
+    } catch(err) {
+        res.status(500);
+        res.send({
+            "error": "Internal Server Error"
 })
 
 app.listen(8083, () => console.log("Webservice is running on 8083"));
