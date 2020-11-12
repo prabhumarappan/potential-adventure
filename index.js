@@ -3,10 +3,17 @@ const app = express();
 const db = require("./db/db");
 const bodyParser = require('body-parser');
 const auth = require('./middleware/auth/auth');
-const jwt = require('jsonwebtoken')
 
 app.use(bodyParser.json());
 
+/*
+ * API to sign a user and return a access token and refresh token
+ * First we check if user exists with the specific email and password, otherwise
+ * we return a 404 response
+ *
+ * Access token is valid for 5 mins
+ * Refresh Token is valid for 1 day
+ */
 app.post('/api/user/login', (req, res) => {
     email = req.body.email;
     password = req.body.password;
@@ -27,6 +34,7 @@ app.post('/api/user/login', (req, res) => {
             }
         })
         .catch(function (err) {
+            console.log(err);
             res.status(500);
             res.json({
                 "error": "Internal Server Error"
@@ -34,6 +42,16 @@ app.post('/api/user/login', (req, res) => {
         })
 });
 
+
+/*
+ * API to return country and details of their gmt offset in seconds
+ * Call a DB function to get details of all the countries and their
+ * respective GMT Offset.
+ *
+ * If any error connecting with database, then a 500 status code is returned!
+ * Middleware checkAuth is used to validate the access token that is being passed
+ * and also throws errors if it has expried
+ */
 app.get("/api/country/all", auth.checkAuth, (req, res) => {
     db.getAllCountryDetails()
         .then(function(countryDetails) {
@@ -48,6 +66,15 @@ app.get("/api/country/all", auth.checkAuth, (req, res) => {
         });
 });
 
+
+/*
+ * API to get GMT Offset for a specific country
+ * Call a function to check if the country exists, othertwise an error code is
+ * returned
+ *
+ * Middleware checkAuth is used to validate the access token that is being passed
+ * and also throws errors if it has expried
+ */
 app.get("/api/country", auth.checkAuth, (req, res) => {
     var countryName = req.body.CountryName;
     db.getCountryDetails(countryName)
@@ -65,6 +92,12 @@ app.get("/api/country", auth.checkAuth, (req, res) => {
 });
 
 
+/*
+ * API to use the refresh token and generate a new access token
+ *
+ * Middleware checkRefresh checks if the token passed in the Authorization
+ * header is a valid one and has not expired!
+ */
 app.get("/api/user/refreshToken", auth.checkRefresh, (req, res) => {
     var refreshToken = req.headers.authorization;
     try {
@@ -79,4 +112,5 @@ app.get("/api/user/refreshToken", auth.checkRefresh, (req, res) => {
     }
 });
 
+// To start the app server on port 8083
 app.listen(8083, () => console.log("Webservice is running on 8083"));
