@@ -11,31 +11,44 @@ app.post('/api/user/login', (req, res) => {
     email = req.body.email;
     password = req.body.password;
     db.userExists(email, password)
-        .then(function(value) {
+        .then(function(exists) {
             // create access token -> valid for 5 mins
             // create refresh token -> valid for 1 day
             // send back both of them in response
+            if (exists) {
+                const response = auth.createJWTTokens(email)
+                res.status(200);
+                res.json(response);
+            } else {
+                res.status(404);
+                res.json({
+                    "error": "User does not exist"
+                });
+            }
         })
         .catch(function (err) {
-            // Send a 402 status code
-            // Send request body
+            res.status(500);
+            res.json({
+                "error": "Internal Server Error"
+            });
         })
-    res.json("hello");
 });
 
-app.get("/api/country/all", (req, res) => {
+app.get("/api/country/all", auth.checkAuth, (req, res) => {
     db.getAllCountryDetails()
         .then(function(countryDetails) {
             res.json(countryDetails);
         })
         .catch(function(error) {
            // error code
-            console.log(error)
-           res.json("error occured");
+            res.status(500);
+           res.json({
+               "error": error
+           });
         });
 });
 
-app.get("/api/country", (req, res) => {
+app.get("/api/country", auth.checkAuth, (req, res) => {
     var countryName = req.body.CountryName;
     db.getCountryDetails(countryName)
         .then(function(result) {
@@ -49,6 +62,7 @@ app.get("/api/country", (req, res) => {
                 "error": error
             });
         });
+});
 
 
 app.get("/api/user/refreshToken", auth.checkRefresh, (req, res) => {
@@ -61,6 +75,8 @@ app.get("/api/user/refreshToken", auth.checkRefresh, (req, res) => {
         res.status(500);
         res.send({
             "error": "Internal Server Error"
-})
+        })
+    }
+});
 
 app.listen(8083, () => console.log("Webservice is running on 8083"));
