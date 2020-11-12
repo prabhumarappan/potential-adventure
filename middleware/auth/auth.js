@@ -2,6 +2,12 @@ const jwt = require('jsonwebtoken')
 const config = require('./config')
 const tokenList = {}
 
+/*
+ * Auth Middleware to check if the request contains an authorization token,
+ * otherwise return an error.
+ * Then it checks for the authenticity and validity of the token, if not there
+ * it returns an error. otherwise the request is forwarded to the actual function
+ */
 function checkAuth(req,res,next) {
     const token = req.headers.authorization;
     if (token) {
@@ -20,6 +26,10 @@ function checkAuth(req,res,next) {
     }
 }
 
+/*
+ * Auth Helper function to generate new Access Token and Refresh Token for a
+ * newly logged in user using their email
+ */
 function createJWTTokens(email) {
     const user = {email: email};
     const token = jwt.sign(user, config.secret, {expiresIn: config.tokenLife});
@@ -31,6 +41,10 @@ function createJWTTokens(email) {
     }
 }
 
+/*
+ * Middleware function to check in the request if there is a valid refresh
+ * token present. Authenticate and check its Validity
+ */
 function checkRefresh(req, res, next) {
     const token = req.headers.authorization;
     if (token) {
@@ -49,7 +63,9 @@ function checkRefresh(req, res, next) {
     }
 }
 
-
+/*
+ * Auth Helper function to create a new refresh token
+ */
 function createJWTRefreshToken(refreshToken, decodedToken) {
     const user = {
         user: decodedToken.user
@@ -61,6 +77,8 @@ function createJWTRefreshToken(refreshToken, decodedToken) {
     }
 }
 
+
+// exporting these functions so that they are avialable to outside files
 module.exports = {
     checkAuth,
     createJWTTokens,
